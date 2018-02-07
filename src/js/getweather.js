@@ -18,6 +18,7 @@ export default class getWeather {
     }
 
     publish(data) {
+        console.log(data);
         this.subscribers.forEach(fn => fn(data));  
     }
 

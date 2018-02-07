@@ -1,8 +1,11 @@
+import { setTimeout } from "timers";
+
 export default class Preloader {
     constructor(w, h) {
         this.w = w;
         this.h = h;
         this.status = false;
+        this.remove = false;
         this.opacity = 1;
         this.bgc = 'rgba(29, 31, 32, opacity)';
         this.circleColor = 'rgba(52, 52, 54, opacity)';
@@ -14,7 +17,14 @@ export default class Preloader {
         this.speed = 0.02;
         this.fontSize = w > h ? h / 5 : w / 5;
     }
-    draw(ctx) {
+    setStatus(){
+        let self = this;
+        setTimeout(function(){
+            self.status = true;
+        },5000);
+        
+    }
+    draw(ctx,fn) {
         ctx.fillStyle = this.bgc.replace('opacity', this.opacity);
         ctx.fillRect(0, 0, this.w, this.h);
         ctx.beginPath();
@@ -33,7 +43,7 @@ export default class Preloader {
         ctx.translate(this.x, this.y);
         ctx.rotate(this.radians * 4);
         ctx.arc(30, 0, 5, 0, Math.PI * 2, false);
-        ctx.fillStyle = 'yellow';
+        ctx.fillStyle = 'rgba(225, 221, 64, opacity)'.replace('opacity', this.opacity);
         ctx.fill();
         ctx.closePath();
         ctx.restore();
@@ -42,9 +52,9 @@ export default class Preloader {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText('btrn', this.w / 2, this.h / 2);
-        this.update(ctx);
+        this.update(ctx,fn);
     }
-    update(ctx) {
+    update(ctx,fn) {
         if (this.status) {
             this.opacity > 0 ? this.opacity -= 0.01 : this.opacity = 0;
         }
@@ -54,6 +64,9 @@ export default class Preloader {
             this.radians > Math.PI * 2 ? this.radians -= Math.PI * 2 : false;
             this.x = this.w / 2 + Math.cos(this.radians) * this.radius;
             this.y = this.h / 2 + Math.sin(this.radians) * this.radius;
+        } else if (this.opacity === 0) {
+            console.log(`прелоадкр умножен на ноль ==== ${this.opacity}`);
+            this.remove = true;
         }
     }
 }
