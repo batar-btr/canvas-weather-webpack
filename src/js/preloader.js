@@ -16,15 +16,26 @@ export default class Preloader {
         this.radians = 0;
         this.speed = 0.02;
         this.fontSize = w > h ? h / 5 : w / 5;
+        this.frames = [];
     }
-    setStatus(){
+    addFrame(frame, func, context) {
+        this.frames.push({ frame, func, context });
+    }
+    setOtherFrames() {
+        // this.frames.forEach(item => item.func.call(item.context, item.frame));
+        this.frames.forEach(item => item.func.call(item.context, item.frame));
+
+    }
+
+    setStatus() {
         let self = this;
-        setTimeout(function(){
+        setTimeout(function () {
             self.status = true;
-        },5000);
-        
+            self.setOtherFrames();
+        }, 1000);
+
     }
-    draw(ctx,fn) {
+    draw(ctx, fn) {
         ctx.fillStyle = this.bgc.replace('opacity', this.opacity);
         ctx.fillRect(0, 0, this.w, this.h);
         ctx.beginPath();
@@ -52,9 +63,9 @@ export default class Preloader {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText('btrn', this.w / 2, this.h / 2);
-        this.update(ctx,fn);
+        this.update(ctx, fn);
     }
-    update(ctx,fn) {
+    update(ctx, fn) {
         if (this.status) {
             this.opacity > 0 ? this.opacity -= 0.01 : this.opacity = 0;
         }

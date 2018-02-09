@@ -6,6 +6,7 @@ export default class Header {
         this.height = w > h ? h / 6 : h / 8;
         this.bgc = 'gray';
         this.textColor = '#ebebeb';
+        this.deg = String.fromCharCode(parseInt('00B0', 16))
     }
 
     draw(ctx) {
@@ -16,12 +17,13 @@ export default class Header {
         ctx.fillStyle = 'gray';
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(this.cityName, this.w / 2, this.height / 2);
+        ctx.fillText(`${this.cityName} ${this.temp}${this.deg}C`, this.w / 2, this.height / 2);
     }
 
-    setup({name, main}) {
+    setup({name, main:{temp}}) {
         this.cityName = name;
-        console.log(main);
-    } 
+        this.temp = temp;
+    }
+    
 }
 

@@ -1,8 +1,13 @@
 import getWeather from './getweather';
 import * as urlQueries from './urlqueries';
 import Preloader from './preloader';
+import Background from './background';
 import Header from './header';
-
+import Animate from './animate';
+import Diagrams from './diagrams-section';
+function log(arg) {
+    console.log(arg);
+}
 
 const canvas = document.getElementById('mycanvas');
 const ctx = canvas.getContext('2d');
@@ -12,39 +17,36 @@ let h = canvas.height = window.innerHeight;
 
 let header = new Header(w, h);
 let preloader = new Preloader(w, h);
+let diagrams = new Diagrams(w, h);
+let bgc = new Background(w, h);
 const weather = new getWeather(urlQueries);
+let animate = new Animate(w, h);
 
 weather.subscribe(header.setup, header);
+weather.subscribe(diagrams.setup, diagrams);
 weather.subscribe(preloader.setStatus, preloader);
+weather.subscribe(bgc.setup, bgc);
+
+preloader.addFrame(diagrams, animate.addFrame, animate);
+preloader.addFrame(header, animate.addFrame, animate);
+preloader.addFrame(bgc, animate.addFrame, animate);
+// preloader.addFrame(header);
 
 weather.getJson();
 
 
-class Animate {
-    constructor() {
-        this.frames = [];
-    }
 
-    addFrame(frame) {
-        this.frames.push(frame);
-    }
-    removeFrame(frame) {
-        let idx = this.frames.indexOf(frame);
-        console.log(idx);
 
-        this.frames.splice(idx, 1);
-    }
-    run(ctx) {
-        ctx.fillStyle = 'rgb(29, 31, 32)';
-        ctx.fillRect(0, 0, w, h);
-        this.frames.forEach(frame => frame.remove ? this.removeFrame.call(this, frame) : frame.draw(ctx));
-        window.requestAnimationFrame(this.run.bind(this, ctx));
-    }
-}
 
-let animate = new Animate();
+
+// animate.addFrame(bgc);
+// animate.addFrame(header);
 animate.addFrame(preloader);
 animate.run(ctx);
+
+
+
+
 
 
 
