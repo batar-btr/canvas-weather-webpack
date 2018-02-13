@@ -12,8 +12,8 @@ export default class diagrams {
     draw(ctx){
         ctx.save();
         ctx.translate(0, this.h);
-        ctx.strokeStyle = this.strokeStyle;
-        ctx.strokeRect(0, 0, this.width, this.height);
+        ctx.fillStyle = 'rgba(1,1,1,0.3)';
+        ctx.fillRect(0,0,this.w, this.height);
         this.clouds.draw(ctx);
         this.humidity.draw(ctx);
         // this.cloudiness.update();

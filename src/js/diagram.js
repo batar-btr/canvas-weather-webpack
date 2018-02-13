@@ -4,7 +4,7 @@ export default class Diagram {
         this.x = x;
         this.y = y;
         this.amount = number;
-        this.number = Math.PI * 2 * (Number(`0.${number}`));
+        this.number = number != 100 ? Math.PI * 2 * (Number(`0.${number}`)) : 100;
         this.name = name;
         this.radians = 0;
         this.color = color;

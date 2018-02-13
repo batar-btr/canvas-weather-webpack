@@ -1,6 +1,7 @@
 class Particle {
-    constructor(x, y, w, h, radius) {
+    constructor(x, y, w, h, radius, windSpeed) {
         this.defX = x;
+        this.windSpeed =windSpeed;
         this.shift = Math.random() * 100;
         this.x = x;
         this.y = y;
@@ -25,7 +26,7 @@ class Particle {
         if (this.x > this.w + this.radius) {
             this.defX = 0;
         } else {
-            this.defX += 1*this.radius/6;
+            this.defX += this.windSpeed/4*this.radius/6;
         }
         this.y += this.radius / 6;
         this.x = Math.sin(this.y * 0.01 + this.shift) * 40 + this.defX;
@@ -37,10 +38,11 @@ class Particle {
 
 
 export default class Snow {
-    constructor(w, h, amount) {
+    constructor(w, h, amount, windSpeed) {
         this.amount = amount;
         this.w = w;
         this.h = h;
+        this.windSpeed = windSpeed;
         this.radius = 1;
         this.addRadius = 10;
         this.particles = [];
@@ -53,7 +55,7 @@ export default class Snow {
             let radius = this.radius + Math.random() * this.addRadius;
             let x = radius + Math.random() * (this.w - radius * 2);
             let y = radius + Math.random() * (this.h - radius * 2);
-            this.particles.push(new Particle(x, y, this.w, this.h, radius));
+            this.particles.push(new Particle(x, y, this.w, this.h, radius, this.windSpeed));
         }
     }
 }
