@@ -1,4 +1,4 @@
-import Snow from './bgconditions';
+import { one } from './bgconditions';
 
 export default class Background {
     constructor(w, h) {
@@ -15,7 +15,11 @@ export default class Background {
         this.temp = temp;
         this.windSpeed = speed;
         this.description = weather[0].main;
-        this.bg = new Snow(this.w, this.h, 300, this.windSpeed);
+        this.bg = one.create('Rain', this.w, this.h, speed);
         this.bg.setup();
+        // this.bg = BgCondition.factory(this.description, this.w, this.h, speed );
+        // this.bg.setup();
     }
 }
+
+console.log(one);

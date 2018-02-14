@@ -30,8 +30,6 @@ weather.subscribe(bgc.setup, bgc);
 preloader.addFrame(diagrams, animate.addFrame, animate);
 preloader.addFrame(header, animate.addFrame, animate);
 preloader.addFrame(bgc, animate.addFrame, animate);
-// preloader.addFrame(header);
-
 weather.getJson();
 
 

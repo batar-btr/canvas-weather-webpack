@@ -12,7 +12,7 @@ export default class Header {
     draw(ctx) {
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 1;
-        ctx.strokeRect(0, 0, this.width, this.height);
+        // ctx.strokeRect(0, 0, this.width, this.height);
         ctx.font = `${Math.floor(this.height * 0.8)}px 'Poiret One', cursive`;
         ctx.fillStyle = 'gray';
         ctx.textAlign = "center";
