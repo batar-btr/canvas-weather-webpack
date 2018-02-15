@@ -1,4 +1,3 @@
-import diagram from './diagram'
 import Diagram from './diagram';
 
 export default class diagrams {

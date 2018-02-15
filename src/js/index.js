@@ -5,6 +5,7 @@ import Background from './background';
 import Header from './header';
 import Animate from './animate';
 import Diagrams from './diagrams-section';
+import Drag from './drag';
 function log(arg) {
     console.log(arg);
 }
@@ -19,6 +20,7 @@ let header = new Header(w, h);
 let preloader = new Preloader(w, h);
 let diagrams = new Diagrams(w, h);
 let bgc = new Background(w, h);
+let drag = new Drag(-350, (diagrams.height + header.height), w, h);
 const weather = new getWeather(urlQueries);
 let animate = new Animate(w, h);
 
@@ -29,9 +31,16 @@ weather.subscribe(bgc.setup, bgc);
 
 preloader.addFrame(diagrams, animate.addFrame, animate);
 preloader.addFrame(header, animate.addFrame, animate);
+preloader.addFrame(drag, animate.addFrame, animate);
 preloader.addFrame(bgc, animate.addFrame, animate);
+console.log(drag);
 weather.getJson();
 
+
+// canvas.addEventListener('mousemove', function(e){
+//     console.log(e.pageX+' '+ e.pageY);
+// });
+canvas.addEventListener('touchstart',drag.update.bind(drag));
 
 
 

@@ -47,7 +47,7 @@ class RainDrop {
         this.h = h;
         this.length = randomRange(5, 50);
         this.opacity = randomRange(0.1, 0.3);
-        this.lineWidth = randomRange(1, 3);
+        this.lineWidth = randomRange(1, 5);
         // this.rdw = rdw;
         // this.rdh = rdh;
     }
@@ -67,7 +67,7 @@ class RainDrop {
         this.update();
     }
     update() {
-        this.y > this.h ? (this.y = -20, this.x = Math.random() * this.w) : this.y += this.length*0.4;
+        this.y > this.h ? (this.y = -20, this.x = Math.random() * this.w) : this.y += this.length*0.8;
     }
 }
 

@@ -4,3 +4,15 @@
     margin: 0;
     overflow: hidden;
 }
+#mycanvas {
+    position: relative;
+    opacity:1;
+}
+.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(29, 31, 32);
+}
