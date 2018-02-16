@@ -8,7 +8,7 @@ export default class Drag {
         this.test = 0;
     }
     draw(ctx) {
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = 'rgba(255,255,255, 0)';
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.fillRect(0, 0, this.w * 2, this.height);
@@ -24,6 +24,7 @@ export default class Drag {
         ctx.restore();
     }
     update(e) {
+        e.preventDefault();
         let target = e.changedTouches[0];
         // this.test = e.changedTouches[0].pageX.toFixed(2);
         let self = this;
@@ -31,11 +32,12 @@ export default class Drag {
             x: target.pageX,
             y: target.pageY
         }
+        let shift = this.x;
         function move(e) {
             e = e.changedTouches[0];
             let shiftX = e.pageX - coords.x;
             this.test = shiftX;
-            this.x = shiftX;
+            this.x = shift + shiftX;
             // if (e.pageY > this.y && e.pageY < this.y + this.height) {
             //     if (e.pageX > this.update.x) {
             //         this.x < 0 ? this.x += 10 : false;
@@ -54,5 +56,24 @@ export default class Drag {
             document.ontouchmove = null;
             document.ontouchend = null;
         };
+    }
+    mousedrag(e) {
+        let self = this;
+        let currentX = e.pageX;
+        let shift = this.x;
+        function move(e) {
+            let shiftX = e.pageX -currentX;
+            this.x = shift + shiftX;
+            console.log(shiftX);
+            // console.log(`${e.pageX} ${e.pageY} ${this.x}`);
+        }
+        document.onmousemove = function (e) {
+            move.call(self, e);
+
+        }
+        document.onmouseup = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
     }
 }

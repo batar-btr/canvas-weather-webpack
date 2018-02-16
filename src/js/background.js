@@ -12,7 +12,7 @@ export default class Background {
         this.bg.draw(ctx);
     }
     setBgImg(node){
-        node.style.background = "url(../src/img/01n.jpg) no-repeat center center" ;
+        node.style.background = "url(../src/img/snow.jpg) no-repeat center center" ;
         node.style.backgroundSize = 'cover';
         console.log('SET BACKGROUNDS');
     }
@@ -20,9 +20,9 @@ export default class Background {
         this.temp = temp;
         this.windSpeed = speed;
         this.description = weather[0].main;
-        this.bg = one.create('Rain', this.w, this.h, speed);
+        this.bg = one.create('Snow', this.w, this.h, speed);
         this.bg.setup();
-        // this.setBgImg(elem);
+        this.setBgImg(elem);
         // this.bg = BgCondition.factory(this.description, this.w, this.h, speed );
         // this.bg.setup();
     }

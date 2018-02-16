@@ -41,6 +41,7 @@ weather.getJson();
 //     console.log(e.pageX+' '+ e.pageY);
 // });
 canvas.addEventListener('touchstart',drag.update.bind(drag));
+canvas.addEventListener('mousedown',drag.mousedrag.bind(drag));
 
 
 
